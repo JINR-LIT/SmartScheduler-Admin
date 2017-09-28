@@ -1,0 +1,190 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_static %}
+{% load staticfiles %}
+
+{% block content_title %}
+  <span class="navbar-brand">Are you sure?</span>
+{% endblock %}
+
+{% if not is_popup %}
+{% block breadcrumbs %}
+<ul class="breadcrumb">
+<li><a href="{% url 'admin:index' %}">{% trans 'Home' %}</a></li>
+<li>{% trans 'Load cloud configuration' %} </li>
+</ul>
+{% endblock %}
+{% endif %}
+
+{% block content %}
+  {% if is_empty_conf %}
+    {% if is_host_group_empty %}
+      <p>You are going to load new cloud configuration. Are you sure you want to proceed?</p>
+    {% else %}
+      <p>You are going to load new cloud configuration but you have host groups defined which may not correspond to the new configuration. Are you sure you want to proceed?</p>
+    {% endif %}
+  {% else %}
+    {% if changes.has %}
+      <p>Your configuration is not empty</p>
+
+      <p>
+        <a class="btn btn-default" data-toggle="collapse" href="#collapseDiff" aria-expanded="false" aria-controls="collapseDiff">
+          Show me the differences
+        </a>
+      </p>
+      <div class="collapse" id="collapseDiff">
+        <div class="panel panel-default">
+            <div class="panel-body">
+              <h4>Changes in clusters:</h4>
+              {% if changes.clusters %}
+                <table class="table table-striped table-bordered">
+                    <thead class="thead-default">
+                    <tr>
+                      <th>ID</th>
+                      <th>Old name</th>
+                      <th>New name</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for cluster_id, cluster_data in changes.clusters.items %}
+                    <tr>
+                      <td>{{cluster_id}}</td>
+                      {% if cluster_data.old_cluster_name == cluster_data.cluster_name %}
+                        <td>{{ cluster_data.old_cluster_name }}</td>
+                        <td>{{ cluster_data.cluster_name }}</td>
+                      {% else %}
+                        <td class="danger">{{ cluster_data.old_cluster_name }}</td>
+                        <td class="success">{{ cluster_data.cluster_name }}</td>
+                      {% endif %}
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              {% else %}
+                No changes.
+              {% endif %}
+
+              <h4>Changes in hosts:</h4>
+              {% if changes.hosts %}
+                <table class="table table-striped table-bordered">
+                    <thead class="thead-default">
+                    <tr>
+                      <th>ID</th>
+                      <th>Old CPU</th>
+                      <th>New CPU</th>
+                      <th>Old RAM</th>
+                      <th>New RAM</th>
+                      <th>Old cluster</th>
+                      <th>New cluster</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for host_id, host_data in changes.hosts.items %}
+                    <tr>
+                      <td>{{host_id}}</td>
+                      {% if host_data.old_cpu == host_data.cpu %}
+                        <td>{{ host_data.old_cpu }}</td>
+                        <td>{{ host_data.cpu }}</td>
+                      {% else %}
+                        <td class="danger">{{ host_data.old_cpu }}</td>
+                        <td class="success">{{ host_data.cpu }}</td>
+                      {% endif %}
+
+                      {% if host_data.old_ram == host_data.ram %}
+                        <td>{{ host_data.old_ram }}</td>
+                        <td>{{ host_data.ram }}</td>
+                      {% else %}
+                        <td class="danger">{{ host_data.old_ram }}</td>
+                        <td class="success">{{ host_data.ram }}</td>
+                      {% endif %}
+
+                      {% if host_data.old_cluster_id == host_data.cluster_id %}
+                        <td>{{ host_data.old_cluster_id }}</td>
+                        <td>{{ host_data.cluster_id }}</td>
+                      {% else %}
+                        <td class="danger">{{ host_data.old_cluster_id }}</td>
+                        <td class="success">{{ host_data.cluster_id }}</td>
+                      {% endif %}
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              {% else %}
+                No changes.
+              {% endif %}
+              <h4>Changes in VMs:</h4>
+              {% if changes.vms %}
+              <table class="table table-striped table-bordered">
+                  <thead class="thead-default">
+                  <tr>
+                    <th>ID</th>
+                    <th>Old CPU</th>
+                    <th>New CPU</th>
+                    <th>Old RAM</th>
+                    <th>New RAM</th>
+                    <th>Old host</th>
+                    <th>New host</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for vm_id, vm_data in changes.vms.items %}
+                  <tr>
+                    <td>{{vm_id}}</td>
+                    {% if vm_data.old_cpu == vm_data.cpu %}
+                      <td>{{ vm_data.old_cpu }}</td>
+                      <td>{{ vm_data.cpu }}</td>
+                    {% else %}
+                      <td class="danger">{{ vm_data.old_cpu }}</td>
+                      <td class="success">{{ vm_data.cpu }}</td>
+                    {% endif %}
+
+                    {% if vm_data.old_ram == vm_data.ram %}
+                      <td>{{ vm_data.old_ram }}</td>
+                      <td>{{ vm_data.ram }}</td>
+                    {% else %}
+                      <td class="danger">{{ vm_data.old_ram }}</td>
+                      <td class="success">{{ vm_data.ram }}</td>
+                    {% endif %}
+
+                    {% if vm_data.old_host_id == vm_data.host_id %}
+                      <td>{{ vm_data.old_host_id }}</td>
+                      <td>{{ vm_data.host_id }}</td>
+                    {% else %}
+                      <td class="danger">{{ vm_data.old_host_id }}</td>
+                      <td class="success">{{ vm_data.host_id }}</td>
+                    {% endif %}
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+              {% else %}
+                No changes.
+              {% endif %}
+            </div>
+        </div>
+      </div>
+    {% else %}
+      Nothing to do - your configuration is up-to-date.
+    {% endif %}
+  {% endif %}
+
+  <form action="" method="post">{% csrf_token %}
+  <div>
+  <input type="hidden" name="post" value="yes" />
+  {% if is_popup %}<input type="hidden" name="{{ is_popup_var }}" value="1" />{% endif %}
+  {% if to_field %}<input type="hidden" name="{{ to_field_var }}" value="{{ to_field }}" />{% endif %}
+  <input type="hidden" name="action" value="." />
+  {% if is_empty_conf %}
+    <input type="submit" class="btn btn-primary" value="{% trans "Yes, I'm sure" %}" />
+    <a href="#" onclick="window.history.back(); return false;" class="button cancel-link">{% trans "No, take me back" %}</a>
+  {% else %}
+    {% if changes.has %}
+      <input type="hidden" name="is_new_config" value="0" />
+      <input type="hidden" name="data_changes" value="{{ changes }}" />
+      <input type="submit" class="btn btn-primary" value="{% trans "Yes, I'm sure" %}" />
+    {% endif %}
+    <a href="#" onclick="window.history.back(); return false;" class="button cancel-link">{% trans "Take me back" %}</a>
+  {% endif %}
+
+  </div>
+  </form>
+{% endblock %}

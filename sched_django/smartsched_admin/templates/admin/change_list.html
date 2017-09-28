@@ -1,0 +1,16 @@
+{% extends "admin/change_list.html" %}
+{% load i18n admin_static bootstrapped_goodies_tags %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  {% load fontawesome %}
+  {% fontawesome_stylesheet %}
+
+{% endblock %}
+
+{% block extrahead %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap-datetimepicker.min.css" %}" />
+  <script type="text/javascript" src="{% static 'js/moment.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/bootstrap-datetimepicker.min.js' %}"></script>
+{% endblock %}

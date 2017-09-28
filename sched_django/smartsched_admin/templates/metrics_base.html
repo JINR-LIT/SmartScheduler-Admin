@@ -1,0 +1,32 @@
+<div class='col-sm-1' style='text-align:right'>
+  <label>From:</label>
+</div>
+<div class='col-sm-3'>
+  <div class="form-group">
+
+    <div class='input-group date' id='metrics_from'>
+      <input type='text' class="form-control" />
+      <span class="input-group-addon">
+        <span class="glyphicon glyphicon-calendar"></span>
+      </span>
+    </div>
+  </div>
+</div>
+<div class='col-sm-1' style='text-align:right'>
+  <label>To:</label>
+</div>
+<div class='col-sm-3'>
+  <div class="form-group" style='white-space:nowrap'>
+    <div class='input-group date' id='metrics_to'>
+      <input type='text' class="form-control" />
+      <span class="input-group-addon">
+        <span class="glyphicon glyphicon-calendar"></span>
+      </span>
+    </div>
+  </div>
+</div>
+<div class='col-sm-2'>
+  <div class="btn btn-default btn-md" id="update_metrics" role="group" aria-label="..."><i class="fa fa-refresh" id="sync_host_spinner" aria-hidden="True"></i> Set date</div>
+</div>
+
+{% block metrics_body %}{% endblock %}

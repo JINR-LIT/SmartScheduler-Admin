@@ -1,0 +1,16 @@
+{% extends "metrics_base.html" %}
+
+{% block metrics_body %}
+
+<div class="row">
+  <div class="col-sm-8">
+    <iframe src="{{ grafana_endpoint }}/dashboard-solo/db/vm-cpu-mem-load?refresh=15s&orgId=1&panelId=1&from={{ date_from }}&to={{ date_to }}&var-vm={{ vm_id }}&theme=light" width="450" height="200" frameborder="0"></iframe><br>
+    <iframe src="{{ grafana_endpoint }}/dashboard-solo/db/vm-cpu-mem-load?refresh=15s&orgId=1&panelId=2&from={{ date_from }}&to={{ date_to }}&var-vm={{ vm_id }}&theme=light" width="450" height="200" frameborder="0"></iframe><br>
+  </div>
+  <div class="col-sm-4">
+    <iframe src="{{ grafana_endpoint }}/dashboard-solo/db/vm-cpu-mem-load?refresh=15s&orgId=1&panelId=3&from={{ date_from }}&to={{ date_to }}&var-vm={{ vm_id }}&theme=light" width="250" height="200" frameborder="0"></iframe><br>
+    <iframe src="{{ grafana_endpoint }}/dashboard-solo/db/vm-cpu-mem-load?refresh=15s&orgId=1&panelId=5&from={{ date_from }}&to={{ date_to }}&var-vm={{ vm_id }}&theme=light" width="250" height="200" frameborder="0"></iframe><br>
+  </div>
+</div>
+
+{% endblock %}
