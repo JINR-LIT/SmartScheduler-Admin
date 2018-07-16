@@ -1,0 +1,55 @@
+- model: smartsched_admin.StrategySetting
+  fields:
+    strategy_name: RankedStrategy
+    setting_name: sleep_time
+    setting_value: 3700
+- model: smartsched_admin.StrategySetting
+  fields:
+    strategy_name: RankedStrategy
+    setting_name: min_lifetime
+    setting_value: 3600
+- model: smartsched_admin.StrategySetting
+  fields:
+    strategy_name: RankedStrategy
+    setting_name: psquare
+    setting_value: 0.1
+- model: smartsched_admin.StrategySetting
+  fields:
+    strategy_name: RankedStrategy
+    setting_name: cpu_max_ovc_0
+    setting_value: 3
+- model: smartsched_admin.StrategySetting
+  fields:
+    strategy_name: RankedStrategy
+    setting_name: mem_max_ovc_0
+    setting_value: 2
+- model: smartsched_admin.StrategySetting
+  fields:
+    strategy_name: RankedStrategy
+    setting_name: cpu_max_usage_0
+    setting_value: 0.8
+- model: smartsched_admin.StrategySetting
+  fields:
+    strategy_name: RankedStrategy
+    setting_name: mem_max_usage_0
+    setting_value: 0.8
+- model: smartsched_admin.StrategySetting
+  fields:
+    strategy_name: RankedStrategy
+    setting_name: cpu_max_ovc_1
+    setting_value: 1
+- model: smartsched_admin.StrategySetting
+  fields:
+    strategy_name: RankedStrategy
+    setting_name: mem_max_ovc_1
+    setting_value: 1
+- model: smartsched_admin.StrategySetting
+  fields:
+    strategy_name: RankedStrategy
+    setting_name: cpu_max_usage_1
+    setting_value: 1
+- model: smartsched_admin.StrategySetting
+  fields:
+    strategy_name: RankedStrategy
+    setting_name: mem_max_usage_1
+    setting_value: 1

@@ -114,3 +114,8 @@ $ python3.4 manage.py createsuperuser
 Restart apache: `service httpd restart`
 
 Now your site should be avalable by http://your_address:8000/admin
+
+The final step is to populate the fixtures which include the RankedStrategy settings:
+```bash
+python3.4 manage.py loaddata /var/www/scheduler/sched_django/smartsched_admin/fixtures/RankedStrategy.yaml
+```

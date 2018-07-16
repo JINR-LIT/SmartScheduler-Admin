@@ -52,6 +52,14 @@ class Host(models.Model):
     def __str__(self):
         return str(self.host_id)
 
+class StrategySetting(models.Model):
+    strategy_name = models.CharField(max_length=200)
+    setting_name = models.CharField(max_length=200)
+    setting_value = models.CharField(max_length=200)
+
+    def __str__(self):
+        return '%s: %s = %s' % (self.strategy_name, self.setting_name, self.setting_value)
+
 class VM(models.Model):
     vm_id = models.IntegerField(default=0, unique=True)
     host = models.ForeignKey(Host)

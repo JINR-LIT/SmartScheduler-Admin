@@ -91,7 +91,12 @@ class VMAdmin(admin.ModelAdmin):
     class Media:
         js = ('js/cloud_api.js',)
 
+class StrategySettingAdmin(admin.ModelAdmin):
+    list_display = ('strategy_name', 'setting_name', 'setting_value')
+    list_editable = ('setting_value',)
+
 admin.site.register(Cluster, ClusterAdmin)
 admin.site.register(HostGroup, HostGroupAdmin)
 admin.site.register(Host, HostAdmin)
 admin.site.register(VM, VMAdmin)
+admin.site.register(StrategySetting, StrategySettingAdmin);
